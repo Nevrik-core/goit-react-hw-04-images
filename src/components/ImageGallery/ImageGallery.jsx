@@ -1,59 +1,30 @@
-import { Component } from "react";
+// import { Component } from "react";
 import { ImageGalleryItem } from "../ImageGalleryItem/ImageGalleryItem";
-import { fetchImg } from '../../services/fetch';
-import {Gallery} from './ImageGallery.styled'
+// import { fetchImg } from '../../services/fetch';
+import {Gallery, Wrapper} from './ImageGallery.styled'
+// import { LoadMoreButton } from "components/LoadMoreButton/LoadMoreButton";
 
 
-export class ImageGallery extends Component {
-
-    state = {
-        pics: [],
-    }
-
-  
-    
-  // async componentDidMount() {
-  
-  //   try {
-  //     const pics = await fetchImg('ukraine');
-  //   this.setState({pics})
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
-  async componentDidUpdate(prevProps) {
-    const { searchQuery } = this.props;
-
-    
-      try {
-        const pics = await fetchImg(searchQuery);
-        if (searchQuery !== '' && prevProps.searchQuery !== searchQuery) {
-          this.setState({ pics })
-       }
-      } catch (error) {
-        console.log(error)
-      }
-    
-    
-    
-  
- }
- 
-    render() {
- const {pics} = this.state
-
-        return (
-        <Gallery className="gallery">
-                {pics.map(pic => (
-                    <ImageGalleryItem
-                        key={pic.id}
-                        imgUrl={pic.webformatURL}
-                        alt={pic.tags} />
+export const ImageGallery = ({ galleryItems }) => {
+  console.log(galleryItems);
+  return (
+      <Wrapper>
+        <Gallery >
+        {galleryItems.map(pic => (
+            
+              <ImageGalleryItem
+                  key={pic.id}
+                  imgUrl={pic.webformatURL}
+                  alt={pic.tags} />
         ))}
             
-        </Gallery>
+          </Gallery>
+          {/* {pics.length > 0 && <LoadMoreButton nextPage={this.nextPage} />} */}
+      </Wrapper>
     )
-  }
-  
+
 }
+
+      
+  
+  

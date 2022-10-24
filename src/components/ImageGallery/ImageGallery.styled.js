@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
 
+export const Wrapper = styled.div`
+  
+`;
+
 export const Gallery = styled.ul`
      display: grid;
   max-width: calc(100vw - 48px);
@@ -11,4 +15,5 @@ export const Gallery = styled.ul`
   list-style: none;
   margin-left: auto;
   margin-right: auto;
+  z-index: 1;
 `;

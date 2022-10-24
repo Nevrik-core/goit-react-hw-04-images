@@ -18,6 +18,6 @@ export const fetchImg = async (query, page = 1) => {
   };
 
     const response = await axios.get('/', config);
-  return response.data.hits;
+  return response.data;
 };
 
