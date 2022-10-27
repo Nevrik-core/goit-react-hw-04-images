@@ -19,7 +19,8 @@ export class App extends Component {
    loading: false, 
    showModal: false,
    total: 0,
-   largeImage: ''
+   largeImage: '',
+   error: ''
   };
 
   largeImage = () => {
@@ -61,8 +62,9 @@ export class App extends Component {
       loading: false,
       total: pics.total
     }));
+
   } catch (error) {
-    
+    console.log("Somthing wrong, try to refresh the page: ", error);
   } finally {
       this.setState({ loading: false });
     }
@@ -80,11 +82,12 @@ export class App extends Component {
   render() {
     return (
       <div>
-        <Searchbar onSubmit={this.formSubmit}/>
+        <Searchbar onSubmit={this.formSubmit} />
+        {this.state.error && <p>{this.state.error}</p>}
         <div>
           <ImageGallery galleryItems={this.state.pics} openModal={ this.openModal} />
           {this.state.loading && <Loader />}
-          <ToastContainer autoClose={3000}
+          <ToastContainer autoClose={2000}
             position="top-left" />
           {this.state.pics.length > 0 && this.state.total / this.state.page > 12 && <LoadMoreButton nextPage={this.onLoadMoreButton} />}
           {this.state.showModal && (
