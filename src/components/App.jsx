@@ -46,7 +46,7 @@ export class App extends Component {
       return;
     }
     if (input === this.state.input) {
-      toast.error(`You\'re repeating yourself.`);
+      toast.error("You're repeating yourself.");
       return;
     }
     this.setState({ input, page: 1, pics: [] });
