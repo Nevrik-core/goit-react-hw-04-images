@@ -1,30 +1,37 @@
-// import { Component } from "react";
+import PropTypes from 'prop-types';
+
 import { ImageGalleryItem } from "../ImageGalleryItem/ImageGalleryItem";
-// import { fetchImg } from '../../services/fetch';
 import {Gallery, Wrapper} from './ImageGallery.styled'
-// import { LoadMoreButton } from "components/LoadMoreButton/LoadMoreButton";
 
-
-export const ImageGallery = ({ galleryItems }) => {
-  console.log(galleryItems);
+export const ImageGallery = ({ galleryItems, openModal }) => {
   return (
       <Wrapper>
         <Gallery >
-        {galleryItems.map(pic => (
+        {galleryItems.map((pic, index) => (
             
               <ImageGalleryItem
-                  key={pic.id}
-                  imgUrl={pic.webformatURL}
-                  alt={pic.tags} />
+            key={pic.id}
+            imgUrl={pic.webformatURL}
+            alt={pic.tags}
+            index={index}
+            openModal={openModal} />
         ))}
             
           </Gallery>
-          {/* {pics.length > 0 && <LoadMoreButton nextPage={this.nextPage} />} */}
       </Wrapper>
     )
 
 }
 
-      
+ImageGallery.propTypes = {
+  galleryItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      tags: PropTypes.string
+    })
+  ),
+  openModal: PropTypes.func.isRequired,
+};      
   
   

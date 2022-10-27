@@ -6,6 +6,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { LoadMoreButton } from "./LoadMoreButton/LoadMoreButton";
 import { Loader } from "./Loader/Loader";
+import Modal from "./Modal/Modal";
+
 
 
 export class App extends Component {
@@ -15,7 +17,23 @@ export class App extends Component {
    page: 1,
    pics: [],
    loading: false, 
-   total: 0
+   showModal: false,
+   total: 0,
+   largeImage: ''
+  };
+
+  largeImage = () => {
+    return this.state.largeImage;
+  }
+ openModal = index => {
+    this.setState(({ pics }) => ({
+      showModal: true,
+      largeImage: pics[index].largeImageURL,
+    }));
+  };
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
   };
 
   onLoadMoreButton = () => {
@@ -50,7 +68,7 @@ export class App extends Component {
     }
   } 
 
-    componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (
       prevState.page !== this.state.page ||
       prevState.input !== this.state.input
@@ -64,11 +82,14 @@ export class App extends Component {
       <div>
         <Searchbar onSubmit={this.formSubmit}/>
         <div>
-          <ImageGallery galleryItems={this.state.pics} />
+          <ImageGallery galleryItems={this.state.pics} openModal={ this.openModal} />
           {this.state.loading && <Loader />}
           <ToastContainer autoClose={3000}
             position="top-left" />
-          {this.state.pics.length > 0 && this.state.total / this.state.page > 12  && <LoadMoreButton nextPage={this.onLoadMoreButton}/>}
+          {this.state.pics.length > 0 && this.state.total / this.state.page > 12 && <LoadMoreButton nextPage={this.onLoadMoreButton} />}
+          {this.state.showModal && (
+          <Modal toggleModal={this.toggleModal} largeImage={this.largeImage} />
+        )}
       </div>
       </div>
       
