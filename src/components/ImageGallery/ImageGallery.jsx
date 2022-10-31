@@ -4,6 +4,7 @@ import { ImageGalleryItem } from "../ImageGalleryItem/ImageGalleryItem";
 import {Gallery, Wrapper} from './ImageGallery.styled'
 
 export const ImageGallery = ({ galleryItems, openModal }) => {
+
   return (
       <Wrapper>
         <Gallery >
